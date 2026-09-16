@@ -3,8 +3,8 @@
 # tap 저장소(<owner>/homebrew-check)의 Casks/aing-check.rb 로 복사합니다.
 # 직접 수정할 필요는 없습니다. 배포 흐름은 docs/release.md 참고.
 cask "aing-check" do
-  version "0.3.29"
-  sha256 "e00a47c6c2e81f81f123ccf89421b5fbb9b0d2752cc70f94e18dc5a15e19a721"
+  version "0.3.30"
+  sha256 "6fb37f92e3ac04d15c02714a9796aa0f9eae5a3551a91b35807190a0a4c69977"
 
   url "https://github.com/yehsung/check/releases/download/v#{version}/aing-check.zip"
   name "aing-check"
@@ -20,9 +20,11 @@ cask "aing-check" do
 
   # quit 훅과 짝: 설치/업그레이드가 끝나면 앱을 백그라운드로 재실행한다.
   # 이게 없으면 업그레이드가 앱을 종료만 하고 방치해, 사용자가 눈치채기 전까지 근무가 기록되지 않는다.
+  # brew 7: 블록형 postflight 은 낡음 경고 → postflight_steps. 경로는 Ruby 보간이 아니라 {{appdir}} 토큰이어야 한다
+  # (보간을 두면 cask 가 통째로 안 읽힌다). must_succeed: false — 재실행은 덤이다. 새 맥에선 옮긴 직후
+  # LaunchServices 등록이 늦어 open 이 kLSNoExecutableErr(-10827)로 실패할 수 있고, run 의 기본값(true)은
+  # 그 실패로 설치 전체를 되돌린다(2026-09-17 신규 설치 실패 신고).
   postflight_steps do
-    # must_succeed: false — 재실행은 **덤**이다. 새 맥에선 옮긴 직후 LaunchServices 등록이 늦어 open 이
-    # kLSNoExecutableErr(-10827)로 실패할 수 있고, run 의 기본값(true)은 그 실패로 설치 전체를 되돌린다(2026-09-17).
     run "/usr/bin/open", args: ["-g", "{{appdir}}/aing-check.app"], must_succeed: false
   end
 
