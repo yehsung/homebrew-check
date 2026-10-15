@@ -3,8 +3,8 @@
 # tap 저장소(<owner>/homebrew-check)의 Casks/aing-check.rb 로 복사합니다.
 # 직접 수정할 필요는 없습니다. 배포 흐름은 docs/release.md 참고.
 cask "aing-check" do
-  version "0.3.52"
-  sha256 "73e7de41c2802761f799b09702bd2ce33325f946cb53cdbfe897ad2497213a98"
+  version "0.3.53"
+  sha256 "77da195c77a340cdcda9a96415526a988503829bcf74eaaf404e36241f3c5a02"
 
   url "https://github.com/yehsung/check/releases/download/v#{version}/aing-check.zip"
   name "aing-check"
